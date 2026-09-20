@@ -1,0 +1,205 @@
+{
+  "name": "Project 5 n8n-Interactive-Weather-App",
+  "nodes": [
+   
+    {
+      "parameters": {
+        "url": "=https://api.weatherbit.io/v2.0/current",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "Add Your Api Key"
+            },
+            {
+              "name": "lat",
+              "value": "={{ $json.results[0].latitude }}"
+            },
+            {
+              "name": "lon",
+              "value": "={{ $json.results[0].longitude }}"
+            }
+           
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -64,
+        -176
+      ],
+      "id": "6987653d-b8cd-4022-9c74-11a64a6658e0",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "url": "https://geocoding-api.open-meteo.com/v1/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json.City }}"
+            },
+            {
+              "name": "count",
+              "value": "1"
+            },
+            {
+              "name": "language",
+              "value": "en"
+            },
+            {
+              "name": "format",
+              "value": "json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -272,
+        -176
+      ],
+      "id": "647ce914-2f14-4f1f-9887-e8b22f60c5c5",
+      "name": "HTTP Request1"
+    },
+    
+    {
+      "parameters": {
+        "formTitle": "Weather Checker",
+        "formDescription": "City Name for Temperature",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "City",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "customCss": "=:root {\n\t/* Typography */\n\t--font-family: 'Open Sans', Arial, sans-serif;\n\t--font-weight-normal: 400;\n\t--font-weight-bold: 700;\n\n\t--font-size-body: 14px;\n\t--font-size-label: 14px;\n\t--font-size-test-notice: 12px;\n\t--font-size-input: 15px;\n\t--font-size-header: 28px;\n\t--font-size-paragraph: 15px;\n\t--font-size-link: 13px;\n\t--font-size-error: 12px;\n\n\t--font-size-html-h1: 30px;\n\t--font-size-html-h2: 22px;\n\t--font-size-html-h3: 18px;\n\t--font-size-html-h4: 16px;\n\t--font-size-html-h5: 14px;\n\t--font-size-html-h6: 12px;\n\t--font-size-subheader: 15px;\n\n\n\t/* Colors */\n\t--color-background: #cceaff;\n\n\t--color-test-notice-text: #805e00;\n\t--color-test-notice-bg: rgba(255,255,255,0.80);\n\t--color-test-notice-border: rgba(255,255,255,0.70);\n\n\t--color-card-bg: rgba(255,255,255,0.86);\n\t--color-card-border: rgba(255,255,255,0.70);\n\t--color-card-shadow: rgba(31,78,121,0.18);\n\n\t--color-link: #2f80ed;\n\n\t--color-header: #173956;\n\t--color-label: #395c78;\n\n\t--color-input-border: #c9dcec;\n\t--color-input-text: #173956;\n\n\t--color-focus-border: #2f80ed;\n\n\t--color-submit-btn-bg: #2f80ed;\n\t--color-submit-btn-text: #ffffff;\n\n\t--color-error: #dc3545;\n\t--color-required: #dc3545;\n\n\t--color-clear-button-bg: #71879a;\n\n\t--color-html-text: #24435f;\n\t--color-html-link: #2f80ed;\n\t--color-header-subtext: #6f879b;\n\n\n\t/* Rounded corners */\n\t--border-radius-card: 26px;\n\t--border-radius-input: 12px;\n\t--border-radius-clear-btn: 50%;\n\t--card-border-radius: 26px;\n\n\n\t/* Spacing */\n\t--padding-container-top: 55px;\n\t--padding-card: 32px;\n\n\t--padding-test-notice-vertical: 10px;\n\t--padding-test-notice-horizontal: 20px;\n\n\t--margin-bottom-card: 20px;\n\n\t--padding-form-input: 14px;\n\n\t--card-padding: 32px;\n\t--card-margin-bottom: 20px;\n\n\n\t/* Dimensions */\n\t--container-width: 580px;\n\t--submit-btn-height: 52px;\n\t--checkbox-size: 18px;\n\n\n\t/* Effects */\n\t--box-shadow-card:\n\t\t0px 20px 55px rgba(31,78,121,0.18);\n\n\t--opacity-placeholder: 0.55;\n}\n\n\n/* Sky Background */\nbody {\n\tbackground:\n\t\tradial-gradient(circle at 12% 18%,\n\t\t\trgba(255,255,255,0.90) 0 48px,\n\t\t\ttransparent 49px),\n\n\t\tradial-gradient(circle at 20% 20%,\n\t\t\trgba(255,255,255,0.75) 0 35px,\n\t\t\ttransparent 36px),\n\n\t\tradial-gradient(circle at 82% 15%,\n\t\t\trgba(255,255,255,0.90) 0 50px,\n\t\t\ttransparent 51px),\n\n\t\tradial-gradient(circle at 74% 18%,\n\t\t\trgba(255,255,255,0.75) 0 36px,\n\t\t\ttransparent 37px),\n\n\t\tlinear-gradient(\n\t\t\t180deg,\n\t\t\t#78bdf2 0%,\n\t\t\t#b8dff8 48%,\n\t\t\t#eef8ff 100%\n\t\t);\n\n\tmin-height: 100vh;\n}\n\n\n/* Input look */\ninput,\ntextarea,\nselect {\n\tbackground: rgba(255,255,255,0.82) !important;\n\tborder-radius: 12px !important;\n\ttransition: 0.2s ease;\n}\n\ninput:focus,\ntextarea:focus,\nselect:focus {\n\tbox-shadow: 0 0 0 3px rgba(47,128,237,0.12) !important;\n}\n\n\n/* Submit button */\nbutton[type=\"submit\"] {\n\tborder-radius: 14px !important;\n\tfont-weight: 700 !important;\n\n\tbox-shadow:\n\t\t0 10px 24px rgba(47,128,237,0.25) !important;\n\n\ttransition: transform 0.2s ease,\n\t            box-shadow 0.2s ease;\n}\n\nbutton[type=\"submit\"]:hover {\n\ttransform: translateY(-2px);\n\n\tbox-shadow:\n\t\t0 14px 28px rgba(47,128,237,0.32) !important;\n}"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -480,
+        -176
+      ],
+      "id": "c9987605-74d2-4fb0-9cfc-e7a5a325ec36",
+      "name": "On form submission",
+      "webhookId": "2537288c-31ec-496f-92de-bc0fa1593bc8",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "={{ `\n<style>\n  * {\n    box-sizing: border-box;\n  }\n\n  body {\n    margin: 0;\n    min-height: 100vh;\n    font-family: Arial, sans-serif;\n    background:\n      radial-gradient(circle at 15% 18%, rgba(255,255,255,0.85) 0 45px, transparent 46px),\n      radial-gradient(circle at 22% 20%, rgba(255,255,255,0.75) 0 35px, transparent 36px),\n      radial-gradient(circle at 80% 15%, rgba(255,255,255,0.85) 0 50px, transparent 51px),\n      radial-gradient(circle at 72% 18%, rgba(255,255,255,0.75) 0 35px, transparent 36px),\n      linear-gradient(180deg, #78bdf2 0%, #b9ddf7 45%, #eef8ff 100%);\n  }\n\n  .weather-wrapper {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    padding: 35px 15px;\n  }\n\n  .weather-card {\n    width: 100%;\n    max-width: 580px;\n    background: rgba(255,255,255,0.82);\n    border: 1px solid rgba(255,255,255,0.65);\n    border-radius: 28px;\n    padding: 30px;\n    box-shadow: 0 20px 55px rgba(31, 78, 121, 0.18);\n    backdrop-filter: blur(12px);\n  }\n\n  .top {\n    text-align: center;\n    margin-bottom: 25px;\n  }\n\n  .weather-icon {\n    font-size: 55px;\n    margin-bottom: 8px;\n  }\n\n  .title {\n    margin: 0;\n    font-size: 30px;\n    color: #173956;\n    font-weight: 700;\n  }\n\n  .subtitle {\n    margin-top: 6px;\n    color: #6f879b;\n    font-size: 14px;\n  }\n\n  .location {\n    text-align: center;\n    background: rgba(255,255,255,0.72);\n    padding: 17px;\n    border-radius: 18px;\n    margin-bottom: 22px;\n  }\n\n  .city {\n    font-size: 27px;\n    font-weight: 700;\n    color: #173956;\n  }\n\n  .country {\n    margin-top: 4px;\n    color: #6b8298;\n    font-size: 15px;\n  }\n\n  .temperature-box {\n    text-align: center;\n    margin: 25px 0;\n  }\n\n  .temperature {\n    display: inline-flex;\n    align-items: flex-start;\n    justify-content: center;\n    color: white;\n    background: linear-gradient(135deg, #2f80ed, #56b4f5);\n    min-width: 170px;\n    min-height: 150px;\n    border-radius: 28px;\n    padding: 30px 25px;\n    box-shadow: 0 14px 28px rgba(47,128,237,0.25);\n  }\n\n  .temp-number {\n    font-size: 50px;\n    font-weight: 700;\n  }\n\n  .temp-unit {\n    font-size: 20px;\n    margin-top: 6px;\n  }\n\n  .weather-condition {\n    text-align: center;\n    font-size: 23px;\n    color: #244b6d;\n    font-weight: 600;\n    margin-bottom: 24px;\n  }\n\n  .details {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 14px;\n  }\n\n  .detail-card {\n    background: rgba(255,255,255,0.80);\n    border-radius: 17px;\n    padding: 17px;\n    display: flex;\n    gap: 12px;\n    align-items: center;\n    box-shadow: 0 6px 18px rgba(41,83,121,0.07);\n  }\n\n  .detail-icon {\n    font-size: 26px;\n  }\n\n  .detail-label {\n    font-size: 12px;\n    color: #7a8fa2;\n    margin-bottom: 4px;\n  }\n\n  .detail-value {\n    font-size: 17px;\n    font-weight: 700;\n    color: #24435f;\n  }\n\n  .footer {\n    text-align: center;\n    margin-top: 24px;\n    font-size: 12px;\n    color: #8294a4;\n  }\n\n  @media (max-width: 520px) {\n    .weather-card {\n      padding: 20px;\n    }\n\n    .details {\n      grid-template-columns: 1fr;\n    }\n\n    .title {\n      font-size: 26px;\n    }\n\n    .temp-number {\n      font-size: 44px;\n    }\n  }\n</style>\n\n<div class=\"weather-wrapper\">\n  <div class=\"weather-card\">\n\n    <div class=\"top\">\n      <div class=\"weather-icon\">🌤️</div>\n      <h1 class=\"title\">Today Weather</h1>\n      <div class=\"subtitle\">Current weather information</div>\n    </div>\n\n    <div class=\"location\">\n      <div class=\"city\">${$json.city}</div>\n      <div class=\"country\">${$json.country}</div>\n    </div>\n\n    <div class=\"temperature-box\">\n      <div class=\"temperature\">\n        <span class=\"temp-number\">${$json.temperature}</span>\n        <span class=\"temp-unit\">°C</span>\n      </div>\n    </div>\n\n    <div class=\"weather-condition\">\n      ${$json.weather}\n    </div>\n\n    <div class=\"details\">\n\n      <div class=\"detail-card\">\n        <div class=\"detail-icon\">💧</div>\n        <div>\n          <div class=\"detail-label\">Humidity</div>\n          <div class=\"detail-value\">${$json.humidity}%</div>\n        </div>\n      </div>\n\n      <div class=\"detail-card\">\n        <div class=\"detail-icon\">📍</div>\n        <div>\n          <div class=\"detail-label\">City</div>\n          <div class=\"detail-value\">${$json.city}</div>\n        </div>\n      </div>\n\n      <div class=\"detail-card\">\n        <div class=\"detail-icon\">🌍</div>\n        <div>\n          <div class=\"detail-label\">Country</div>\n          <div class=\"detail-value\">${$json.country}</div>\n        </div>\n      </div>\n\n      <div class=\"detail-card\">\n        <div class=\"detail-icon\">☁️</div>\n        <div>\n          <div class=\"detail-label\">Condition</div>\n          <div class=\"detail-value\">${$json.weather}</div>\n        </div>\n      </div>\n\n    </div>\n\n    <div class=\"footer\">\n      Weather information generated automatically\n    </div>\n\n  </div>\n</div>\n` }}"
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        368,
+        -176
+      ],
+      "id": "bc5cf0a7-d354-45a0-bb2d-be156e7cb98b",
+      "name": "Form",
+      "webhookId": "dcdea219-71f4-45d0-b152-41e9168d3ba1"
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "in_items = _items\nout_data = []\n\nfor item in in_items:\n    # HTTP Request se aane wala data nikalna\n    weather_data = item[\"json\"][\"data\"][0]\n    \n    # API se values dynamically fetch karna (Bina PK hardcode kiye)\n    city = weather_data[\"city_name\"]\n    country = weather_data[\"country_code\"] \n    temp = weather_data[\"temp\"]\n    humidity = weather_data[\"rh\"]\n    desc = weather_data[\"weather\"][\"description\"]\n    \n    # Final Output JSON banana\n    out_data.append({\n        \"json\": {\n            \"city\": city,\n            \"country\": country,\n            \"temperature\": temp,\n            \"humidity\": humidity,\n            \"weather\": desc\n        }\n    })\n\nreturn out_data"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -176
+      ],
+      "id": "bfeeb6ac-b8d6-42b7-a48c-6a3958389cef",
+      "name": "Code in Python"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in Python",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        []
+      ]
+    },
+    "Code in Python": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e1801657-5655-4c78-ad6b-28c815ad8ce8",
+  
+  "nodeGroups": [],
+  "id": "ocYqZxwdmg3FD8nD",
+  "tags": []
+}
